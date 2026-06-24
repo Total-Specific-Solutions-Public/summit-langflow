@@ -15,11 +15,13 @@ A flow is just components wired together — here a Chat Input feeds an LLM, whi
 
 ## Available flows and components
 
-| File | Type | What it does |
-|---|---|---|
-| `template-flows/Starter.json` | Flow | Simple chat: Chat Input → LiteLLM Proxy → Chat Output |
-| `template-flows/RAG.json` | Flow | Full RAG: load a file into a vector database, then answer questions from it |
-| `template-components/gemma4.json` | Component | LiteLLM Proxy — routes requests to any LLM via a proxy with virtual key authentication |
+It contains two folders:
+
+- `template-flows/` — two example flows you can use as a starting point:
+  - `Starter.json` — simple chat: Chat Input → LiteLLM Proxy → Chat Output
+  - `RAG.json` — full RAG pipeline: load a file into a vector database, then answer questions from it
+- `template-components/` — one custom component:
+  - `gemma4.json` — a LiteLLM Proxy component for making calls to our AI server via a proxy with virtual key authentication
 
 ## The variables you'll use
 
@@ -27,10 +29,11 @@ A flow is just components wired together — here a Chat Input feeds an LLM, whi
 |---|---|---|
 | `LiteLLM_URL` | URL of our LiteLLM proxy server | **LiteLLM Proxy** → `LiteLLM Proxy URL` |
 | `GEMMA_APIKEY` | Virtual key for the proxy | **LiteLLM Proxy** → `Virtual Key` |
-| `Text-embedding-3-small` | Embedding model name | **OpenAI Embeddings** → `Model` |
+| `Gemma` | Our text/OCR model | **LiteLLM Proxy** → `Model Name` |
+| `embeddings` | Our embedding model | **OpenAI Embeddings** → `Model` |
 | `DATABASE` | PostgreSQL + pgvector connection string | **PGVector** → `PostgreSQL Server Connection String` |
 
-> Only the RAG flow needs `DATABASE` and `Text-embedding-3-small`. The Starter flow only needs `LiteLLM_URL`, `GEMMA_APIKEY`, and a model name.
+> Only the RAG flow needs `embeddings` and `DATABASE`. The Starter flow only needs `LiteLLM_URL`, `GEMMA_APIKEY`, and `Gemma`.
 
 ## The rule for wiring any flow
 
@@ -38,8 +41,8 @@ A flow is just components wired together — here a Chat Input feeds an LLM, whi
 |---|---|
 | `LiteLLM Proxy URL` | `LiteLLM_URL` |
 | `Virtual Key` | `GEMMA_APIKEY` |
-| `Model Name` | Type a model name directly (e.g. `gemma3-27b`) |
-| `Model` (Embeddings) | `Text-embedding-3-small` |
+| `Model Name` | `Gemma` |
+| `Model` (Embeddings) | `embeddings` |
 | `PostgreSQL Server Connection String` | `DATABASE` |
 | `Temperature` | `0`–`1` — lower = more factual, higher = more creative |
 | `System Message` | *(optional)* instructions for tone/role |
