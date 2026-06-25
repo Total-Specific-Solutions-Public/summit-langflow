@@ -6,7 +6,7 @@ These flows run on our own AI server using a custom **LiteLLM Proxy** component.
 
 ## Before you start
 
-- Import a flow: drag its JSON into the panel on [flow.paip.nl](https://flow.paip.nl).
+- Import a flow: drag its JSON into the panel on [flow.maip.nl](https://flow.maip.nl).
 - Your account already has the variables below loaded. In a field, click the **variable icon** (🌐) and pick the one you need.
 
 A flow is just components wired together — here a Chat Input feeds an LLM, which feeds a Chat Output:
